@@ -1,29 +1,26 @@
 class autocomplete {
-    data = [];
-    liClass = "autocomplete-li";
 
-    constructor(elements, minLetter = 3, filter = false) {
-        this.inputs = document.getElementsByClassName(elements);
+    constructor(element, minLetter = 3, filter = false) {
+        this.input = document.getElementById(element);
         this.minLetter = minLetter;
         this.filter = filter;
+        this.liClass = "autocomplete-li";
+        this.data = [];
         this.init();
     }
 
     init = () => {
-        //liste tous les inputs lié a la classe
-        Array.prototype.forEach.call(this.inputs, (input) => {
             //retire l'autocompletion du navigateur
-            input.setAttribute('autocomplete','off');
+            this.input.setAttribute('autocomplete','off');
 
             //Creation du li et ajout d'une classe
-            const li = document.createElement('li');
+            let li = document.createElement('li');
             li.className = this.liClass;
             //Réglage de la largeur du la liste par rapport a la taille de l'input
-            li.style.width = getComputedStyle(input).width;
+            li.style.width = getComputedStyle(this.input).width;
 
             //Evenement quand on écris dans l'input
-            this.addInputEvent(input, li);
-        });
+            this.addInputEvent(this.input, li);
     };
 
     addInputEvent = (input, li) => {
