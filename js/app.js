@@ -1,13 +1,5 @@
-// let input1 = new autocomplete('name', 3, true);
-//
-// fetch('https://jsonplaceholder.typicode.com/users')
-// .then(response => response.json())
-// .then(data => {
-//   input1.setData(data.map(function (item) {
-//     return item.name;
-//   }));
-// });
 
-let input2 = new autocomplete('country', 1, true);
-input2.setData(['France', 'Allemagne', 'Angleterre', 'Autriche', 'Espagne', 'Italie', 'Pologne', 'Suede', 'Croatie', 'Belgique', 'Suisse']);
-input2.setOrder('DESC');
+let input1 = new autocomplete('country', 1, true);
+input1.setData(['France', 'Allemagne', 'Angleterre', 'Autriche', 'Espagne', 'Italie', 'Pologne', 'Suede', 'Croatie', 'Belgique', 'Suisse']);
+input1.setOrder('ASC');
+input1.setHighLight(true);
