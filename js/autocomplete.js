@@ -1,12 +1,12 @@
 class autocomplete {
     data = [];
-    inputs = null;
     liClass = "autocomplete-li";
-    minLetter = 3;
 
-    constructor(elements) {
+    constructor(elements, minLetter = 3, filter = false) {
         this.inputs = document.getElementsByClassName(elements);
-        this.init()
+        this.minLetter = minLetter;
+        this.filter = filter;
+        this.init();
     }
 
     init = () => {
@@ -29,24 +29,24 @@ class autocomplete {
     addInputEvent = (input, li) => {
         input.addEventListener('input', () => {
             li.innerHTML = '';
-
+            li.remove();
             if (input.value.length >= this.minLetter) {
-                let data = this.dataFilter(this.data, input);
+                let data = this.filter === true ? this.dataFilter(this.data, input) : this.data;
                 data.forEach((item) => {
                     let ul = document.createElement('ul');
                     ul.innerText = item;
                     this.addClickEventOnLi(ul, input);
                     li.append(ul);
+                    input.after(li);
                 });
-                input.after(li);
             }
         });
     };
 
     addClickEventOnLi = (element, input) => {
         element.addEventListener('click', function () {
-            element.parentNode.remove();
             input.value = element.innerText;
+            element.parentElement.remove();
         });
     };
 
@@ -57,4 +57,12 @@ class autocomplete {
     setData = (data) => {
         this.data = data;
     };
+
+    setMinLetters = (minLetter) => {
+        this.minLetter = minLetter;
+    };
+
+    setFilter = (filter) => {
+        this.filter = filter;
+    }
 }
