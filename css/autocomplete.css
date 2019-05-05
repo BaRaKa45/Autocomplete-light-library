@@ -17,3 +17,8 @@
     background-color: #007bff;
     color: white;
 }
+
+.autocomplete-li ul span {
+    font-weight: bold;
+    color: #007bff;
+}
