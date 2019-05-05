@@ -39,6 +39,15 @@ class autocomplete {
                     li.append(ul);
                     input.after(li);
                 });
+                this._clickOutsideList(input, li);
+            }
+        });
+    };
+
+    _clickOutsideList = (input, li) => {
+        document.addEventListener('click', (evt) => {
+            if (!li.contains(evt.target)){
+                li.remove();
             }
         });
     };
