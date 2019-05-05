@@ -1,15 +1,16 @@
 class autocomplete {
 
-    constructor(element, minLetter = 3, filter = false) {
+    constructor(element, minLetter = 3, filter = false, order = 'none') {
         this.input = document.getElementById(element);
         this.minLetter = minLetter;
         this.filter = filter;
         this.liClass = "autocomplete-li";
         this.data = [];
-        this.init();
+        this.order = order;
+        this._init();
     }
 
-    init = () => {
+    _init = () => {
             //retire l'autocompletion du navigateur
             this.input.setAttribute('autocomplete','off');
 
@@ -20,19 +21,20 @@ class autocomplete {
             li.style.width = getComputedStyle(this.input).width;
 
             //Evenement quand on écris dans l'input
-            this.addInputEvent(this.input, li);
+            this._addInputEvent(this.input, li);
     };
 
-    addInputEvent = (input, li) => {
+    _addInputEvent = (input, li) => {
         input.addEventListener('input', () => {
             li.innerHTML = '';
             li.remove();
             if (input.value.length >= this.minLetter) {
-                let data = this.filter === true ? this.dataFilter(this.data, input) : this.data;
+                let data = this.filter === true ? this._dataFilter(this.data, input) : this.data;
+                this._orderData(data);
                 data.forEach((item) => {
                     let ul = document.createElement('ul');
                     ul.innerText = item;
-                    this.addClickEventOnLi(ul, input);
+                    this._addClickEventOnRow(ul, input);
                     li.append(ul);
                     input.after(li);
                 });
@@ -40,15 +42,26 @@ class autocomplete {
         });
     };
 
-    addClickEventOnLi = (element, input) => {
+    _addClickEventOnRow = (element, input) => {
         element.addEventListener('click', function () {
             input.value = element.innerText;
             element.parentElement.remove();
         });
     };
 
-    dataFilter = (data, input) => {
+    _dataFilter = (data, input) => {
         return data.filter(item => item.toUpperCase().indexOf(input.value.toUpperCase()) !== -1);
+    };
+
+    _orderData = (data) => {
+        if (this.order === 'ASC') {
+            console.log('test');
+            return data.sort();
+        } else if (this.order === 'DESC') {
+            return data.sort().reverse();
+        }
+
+        return data;
     };
 
     setData = (data) => {
@@ -61,5 +74,9 @@ class autocomplete {
 
     setFilter = (filter) => {
         this.filter = filter;
+    }
+
+    setOrder = (order) => {
+        this.order = order;
     }
 }
