@@ -1,0 +1,19 @@
+.autocomplete-li {
+    position: absolute;
+    background-color: white;
+    list-style-type: none;
+    padding: 0;
+    border: 1px grey solid;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.autocomplete-li ul {
+    margin: 0;
+    padding: 8px 15px;
+}
+
+.autocomplete-li ul:hover{
+    background-color: #007bff;
+    color: white;
+}
